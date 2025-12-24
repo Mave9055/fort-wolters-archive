@@ -1,4 +1,4 @@
-/* Fort Wolters Archive – Shared Styles (Mid-Century Military Aesthetic) */
+/* Fort Wolters Archive – Master Stylesheet (Mid-Century Military Aesthetic) */
 
 /* 1. Google Fonts Import */
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
@@ -21,6 +21,7 @@
     box-sizing: border-box;
 }
 
+/* 3. Base Styles */
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
@@ -64,11 +65,11 @@ a:hover {
 
 /* Buttons */
 button, .button {
-    background: var(--color-accent-red);
+    background: var(--color-secondary);
     color: white;
     padding: 12px 24px;
     border: none;
-    border-radius: 4px; /* Sharper edges for military feel */
+    border-radius: 4px;
     font-size: 1em;
     font-weight: 600;
     cursor: pointer;
@@ -77,7 +78,7 @@ button, .button {
 }
 
 button:hover, .button:hover {
-    background: #d63447;
+    background: var(--color-primary);
     transform: translateY(-1px);
     box-shadow: 0 4px 8px var(--color-shadow);
 }
@@ -94,9 +95,9 @@ button:hover, .button:hover {
     background: var(--color-card-bg);
     border-radius: 8px;
     padding: 25px;
-    box-shadow: 0 4px 12px var(--color-shadow); /* Subtle elevation */
+    box-shadow: 0 4px 12px var(--color-shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid #E0E0D0; /* Subtle border to define edge */
+    border: 1px solid #E0E0D0;
 }
 
 .card:hover {
@@ -112,20 +113,20 @@ button:hover, .button:hover {
 .mb-1 { margin-bottom: 10px; }
 .mb-2 { margin-bottom: 20px; }
 .mb-3 { margin-bottom: 30px; }
+.no-print { display: block; }
 
 /* Status Indicators (LED-style) */
 .status-indicator {
     display: inline-block;
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    margin-right: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
 .status-functional {
     background-color: var(--color-accent-green);
-    box-shadow: 0 0 8px var(--color-accent-green);
+    box-shadow: 0 0 10px var(--color-accent-green);
 }
 
 .status-decommissioned {
@@ -138,15 +139,18 @@ button:hover, .button:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1px;
-    background: #ccc; /* Grid lines */
-    border: 1px solid #ccc;
+    background: #ccc;
+    border: 2px solid var(--color-secondary);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 25px 0;
     font-family: 'Courier Prime', monospace;
     font-size: 0.9em;
 }
 
 .spec-item {
     background: var(--color-card-bg);
-    padding: 10px 15px;
+    padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -157,14 +161,432 @@ button:hover, .button:hover {
     color: var(--color-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.9em;
 }
 
 .spec-value {
     color: var(--color-primary);
     text-align: right;
+    font-family: 'Courier Prime', monospace;
 }
 
-/* Responsive */
+/* ===== DASHBOARD PAGE STYLES ===== */
+
+.dashboard-header {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #2d3e50 100%);
+    color: var(--color-background);
+    padding: 50px 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-bottom: 6px solid var(--color-secondary);
+}
+
+.dashboard-header h1 {
+    margin: 0 0 10px 0;
+    font-size: 2.8em;
+    letter-spacing: 1px;
+    color: var(--color-background);
+}
+
+.dashboard-header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1.1em;
+}
+
+/* Breadcrumb Navigation */
+.breadcrumb {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+    font-size: 0.9em;
+    color: var(--color-secondary);
+}
+
+.breadcrumb a {
+    color: var(--color-secondary);
+}
+
+/* Dashboard Controls */
+.controls {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.controls input, .controls select {
+    padding: 12px 15px;
+    border: 2px solid var(--color-secondary);
+    border-radius: 4px;
+    font-size: 1em;
+    flex: 1;
+    min-width: 200px;
+    background: white;
+    color: var(--color-primary);
+    font-family: 'Roboto', sans-serif;
+}
+
+.controls input:focus, .controls select:focus {
+    outline: none;
+    border-color: var(--color-accent-red);
+    box-shadow: 0 0 8px rgba(233, 69, 96, 0.3);
+}
+
+/* Artifact Grid */
+.artifact-grid {
+    max-width: 1200px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+.artifact-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border-left: 5px solid var(--color-secondary);
+}
+
+.artifact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.artifact-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #E0E0D0;
+}
+
+.artifact-info {
+    padding: 20px;
+}
+
+.artifact-id {
+    color: var(--color-accent-red);
+    font-weight: 700;
+    font-size: 0.85em;
+    margin-bottom: 8px;
+    font-family: 'Courier Prime', monospace;
+    letter-spacing: 1px;
+}
+
+.artifact-title {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0 0 10px 0;
+}
+
+.artifact-meta {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+.artifact-meta strong {
+    color: #333;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--color-secondary);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 1.2em;
+}
+
+.stats {
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 1.1em;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    font-family: 'Courier Prime', monospace;
+    letter-spacing: 0.5px;
+}
+
+/* ===== ARTIFACT PAGE STYLES (fw-arc-0001.html) ===== */
+
+.artifact-header {
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+    padding: 40px 20px;
+    text-align: center;
+    border-bottom: 3px solid var(--color-secondary);
+}
+
+.artifact-header h1 {
+    color: var(--color-primary);
+    margin: 0 0 15px 0;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+}
+
+.header-subtitle {
+    color: var(--color-secondary);
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+/* Image Gallery */
+.image-gallery {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.image-item {
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.image-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.image-caption {
+    padding: 12px;
+    background: var(--color-background);
+    font-size: 0.9em;
+    color: #666;
+    text-align: center;
+    font-family: 'Courier Prime', monospace;
+    letter-spacing: 0.5px;
+}
+
+/* Blueprint Overlay Container */
+.artifact-showcase {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+.blueprint-container {
+    position: relative;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+}
+
+.blueprint-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('../assets/images/th55a-blueprint.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.blueprint-content {
+    position: relative;
+    z-index: 1;
+}
+
+.blueprint-title {
+    font-size: 1.8em;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.blueprint-subtitle {
+    font-size: 1em;
+    color: var(--color-secondary);
+    margin-bottom: 30px;
+    font-family: 'Courier Prime', monospace;
+    letter-spacing: 1px;
+}
+
+/* Section Styles */
+.section {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.section h2 {
+    color: var(--color-primary);
+    border-left: 5px solid var(--color-secondary);
+    padding-left: 15px;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    letter-spacing: 0.5px;
+}
+
+/* Contextual Tag Links */
+.tag-link {
+    color: var(--color-accent-red);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-accent-red);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.tag-link:hover {
+    background-color: var(--color-accent-red);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Provenance Box */
+.provenance-box {
+    background: #f0f8ff;
+    border-left: 5px solid var(--color-secondary);
+    padding: 25px;
+    margin: 25px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.provenance-box p {
+    margin: 10px 0;
+    line-height: 1.7;
+}
+
+.provenance-box strong {
+    color: var(--color-secondary);
+}
+
+/* Status Line */
+.status-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.95em;
+}
+
+/* Historical Context */
+.historical-context {
+    background: #fffef0;
+    border: 2px solid var(--color-secondary);
+    padding: 30px;
+    border-radius: 8px;
+    margin: 30px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.historical-context h3 {
+    color: var(--color-primary);
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--color-secondary);
+    padding-bottom: 10px;
+}
+
+.historical-context p {
+    line-height: 1.8;
+    color: #333;
+}
+
+/* QR Code Container */
+#qr-code-container {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#qr-code-container img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Actions */
+.actions {
+    text-align: center;
+    margin: 50px 0;
+    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.actions h3 {
+    margin-bottom: 20px;
+    color: var(--color-primary);
+}
+
+.actions button {
+    margin: 10px;
+    background: var(--color-secondary);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.actions button:hover {
+    background: var(--color-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 60px;
+    padding: 30px 20px;
+    border-top: 2px solid var(--color-secondary);
+    color: #666;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.9em;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
     h1 { font-size: 2em; }
     h2 { font-size: 1.5em; }
@@ -173,9 +595,34 @@ button:hover, .button:hover {
     .container {
         padding: 0 15px;
     }
+
+    .dashboard-header h1 {
+        font-size: 2em;
+    }
+
+    .artifact-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .controls input, .controls select {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .spec-sheet {
+        grid-template-columns: 1fr;
+    }
+
+    .image-gallery {
+        grid-template-columns: 1fr;
+    }
 }
 
-/* Print Styles */
+/* ===== PRINT STYLES ===== */
 @media print {
     body {
         background: white;
@@ -184,60 +631,22 @@ button:hover, .button:hover {
     .no-print {
         display: none !important;
     }
+
+    .actions {
+        display: none !important;
+    }
     
     .card {
         box-shadow: none;
         border: 1px solid #ddd;
         page-break-inside: avoid;
     }
-}
-/* Fort Wolters Archive - Global Styles */
-:root {
-    --army-green: #2E3B23;
-    --khaki: #A39274;
-    --brass: #D4AF37;
-    --paper: #F5F5F0;
-    --stencil-black: #1A1A1A;
-}
 
-body {
-    background-color: var(--paper);
-    color: var(--stencil-black);
-    font-family: 'Inter', sans-serif;
-}
+    .artifact-card {
+        page-break-inside: avoid;
+    }
 
-/* Monospace for Metadata & IDs */
-.mono {
-    font-family: 'Courier Prime', 'Courier New', monospace;
-    text-transform: uppercase;
-}
-
-/* The "Military Manifest" Table */
-.manifest-table {
-    width: 100%;
-    border: 1px solid var(--stencil-black);
-    margin-top: 2rem;
-}
-
-.manifest-table th {
-    background: var(--army-green);
-    color: white;
-    padding: 12px;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-}
-
-.manifest-table td {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-    background: white;
-}
-
-/* Scanned/Hashed Badge */
-.hash-badge {
-    background: #e0e0e0;
-    padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 0.7rem;
-    border-left: 4px solid var(--brass);
+    .section {
+        page-break-inside: avoid;
+    }
 }
