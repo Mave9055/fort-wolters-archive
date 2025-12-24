@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection Dashboard – Fort Wolters Archive</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <style>
+        body {
+            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+        }
+        .header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .controls {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .controls input, .controls select {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            flex: 1;
+            min-width: 200px;
+        }
+        .controls input:focus, .controls select:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+        .artifact-grid {
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        .artifact-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .artifact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .artifact-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #eee;
+        }
+        .artifact-info {
+            padding: 20px;
+        }
+        .artifact-id {
+            color: #e94560;
+            font-weight: 700;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        .artifact-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin: 0 0 10px 0;
+        }
+        .artifact-meta {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        .artifact-meta strong {
+            color: #333;
+        }
+        .badge {
+            display: inline-block;
+            background: #0f3460;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            font-size: 1.2em;
+        }
+        .stats {
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+            padding: 0 20px;
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📦 Collection Dashboard</h1>
+        <p>Browse and explore artifacts from the Fort Wolters Archive</p>
+    </div>
+
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="🔍 Search by title, description, or ID...">
+        <select id="categoryFilter">
+            <option value="">All Categories</option>
+            <option value="Lighter">Lighters</option>
+            <option value="Insignia">Insignia</option>
+            <option value="Document">Documents</option>
+            <option value="Equipment">Equipment</option>
+        </select>
+        <select id="conditionFilter">
+            <option value="">All Conditions</option>
+            <option value="Excellent">Excellent</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Poor">Poor</option>
+        </select>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="artifact-grid" id="artifactGrid"></div>
+
+    <div class="no-results" id="noResults" style="display: none;">
+        No artifacts found matching your filters.
+    </div>
+
+    <script>
+        let artifacts = [];
+
+        // Load registry data
+        fetch('data/registry.json')
+            .then(response => response.json())
+            .then(data => {
+                artifacts = data.artifacts;
+                renderArtifacts(artifacts);
+                updateStats(artifacts);
+            })
+            .catch(error => {
+                console.error('Error loading registry:', error);
+                document.getElementById('noResults').style.display = 'block';
+                document.getElementById('noResults').textContent = 'Error loading artifact data.';
+            });
+
+        // Filter and search logic
+        function filterArtifacts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const condition = document.getElementById('conditionFilter').value;
+
+            const filtered = artifacts.filter(artifact => {
+                const matchesSearch = 
+                    artifact.title.toLowerCase().includes(searchTerm) ||
+                    artifact.description.toLowerCase().includes(searchTerm) ||
+                    artifact.id.toLowerCase().includes(searchTerm);
+                
+                const matchesCategory = !category || artifact.category === category;
+                const matchesCondition = !condition || artifact.condition === condition;
+
+                return matchesSearch && matchesCategory && matchesCondition;
+            });
+
+            renderArtifacts(filtered);
+            updateStats(filtered);
+        }
+
+        // Render artifacts
+        function renderArtifacts(artifactList) {
+            const grid = document.getElementById('artifactGrid');
+            const noResults = document.getElementById('noResults');
+
+            if (artifactList.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            noResults.style.display = 'none';
+
+            grid.innerHTML = artifactList.map(artifact => `
+                <div class="artifact-card" onclick="window.location.href='${artifact.page_url}'">
+                    <img src="${artifact.image_url || 'assets/placeholder.jpg'}" 
+                         alt="${artifact.title}" 
+                         class="artifact-image"
+                         onerror="this.src='assets/placeholder.jpg'">
+                    <div class="artifact-info">
+                        <div class="artifact-id">${artifact.id}</div>
+                        <h3 class="artifact-title">${artifact.title}</h3>
+                        <div class="artifact-meta">
+                            <strong>Era:</strong> ${artifact.era}<br>
+                            <strong>Condition:</strong> ${artifact.condition}<br>
+                            <strong>Acquired:</strong> ${artifact.acquisition_date}
+                        </div>
+                        <span class="badge">${artifact.category}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update stats
+        function updateStats(artifactList) {
+            const stats = document.getElementById('stats');
+            stats.textContent = `Showing ${artifactList.length} of ${artifacts.length} artifacts`;
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterArtifacts);
+        document.getElementById('categoryFilter').addEventListener('change', filterArtifacts);
+        document.getElementById('conditionFilter').addEventListener('change', filterArtifacts);
+    </script>
+</body>
+</html>

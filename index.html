@@ -3,55 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fort Wolters Archive | Provenance Dossier</title>
-    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <title>Fort Wolters Archive – Preserving Aviation History</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 4px solid #0f3460;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.3em;
+            margin: 0 0 40px 0;
+            opacity: 0.9;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #e94560;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background: #d63447;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(233, 69, 96, 0.4);
+        }
+        .features {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .feature-card h3 {
+            color: #1a1a2e;
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        .feature-card p {
+            color: #555;
+            line-height: 1.6;
+        }
+        .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        footer {
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Fort Wolters Archive</h1>
-        <h2>Semantic Provenance Dossier: 1965 U.S. Army Aviation Lighter</h2>
-    </header>
+    <div class="hero">
+        <h1>🛩️ Fort Wolters Archive</h1>
+        <p>Preserving the Legacy of U.S. Army Aviation Training</p>
+        <a href="dashboard.html" class="cta-button">Explore the Collection →</a>
+    </div>
 
-    <main>
-        <section id="artifact-details">
-            <h3>Artifact Specifications</h3>
-            <ul>
-                <li><strong>Subject:</strong> 1965 U.S. Army Aviation Presentation Lighter</li>
-                <li><strong>Recipient:</strong> WOC Arthur P. Lancy Jr.</li>
-                <li><strong>Maker:</strong> Park Sherman (Maker's Marks: "Park")</li>
-                <li><strong>Engraving:</strong> Hughes TH-55A Osage Helicopter</li>
-            </ul>
-        </section>
+    <div class="features">
+        <div class="feature-card">
+            <div class="icon">📜</div>
+            <h3>Digital Provenance</h3>
+            <p>Every artifact is documented with detailed provenance records, high-resolution imagery, and verifiable metadata—ensuring authenticity and historical accuracy.</p>
+        </div>
 
-        <section id="timeline">
-            <h3>Provenance Timeline</h3>
-            <table>
-                <tr>
-                    <th>Year</th>
-                    <th>Event</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>1965</td>
-                    <td>Presented at Fort Wolters, Texas</td>
-                    <td>Original Issue</td>
-                </tr>
-                <tr>
-                    <td>1965-2023</td>
-                    <td>Private Collection (Lancy Family)</td>
-                    <td>Private Custody</td>
-                </tr>
-                <tr>
-                    <td>2024</td>
-                    <td>Acquired by Fort Wolters Archive</td>
-                    <td>Archival Custody</td>
-                </tr>
-            </table>
-        </section>
-    </main>
+        <div class="feature-card">
+            <div class="icon">🔍</div>
+            <h3>Interactive Dashboard</h3>
+            <p>Browse, filter, and search through the collection with our intuitive dashboard. View artifacts by category, era, condition, and more.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🔐</div>
+            <h3>Blockchain Ready</h3>
+            <p>Each artifact packet includes cryptographic hashing and QR code integration, ready for future blockchain verification and NFT minting.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🎖️</div>
+            <h3>Military Heritage</h3>
+            <p>Fort Wolters trained over 40,000 helicopter pilots from 1956-1973. These artifacts preserve the stories of those who served.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">🌐</div>
+            <h3>Open Access</h3>
+            <p>All provenance packets are freely accessible, printable, and shareable—supporting researchers, collectors, and history enthusiasts worldwide.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="icon">📱</div>
+            <h3>QR Verification</h3>
+            <p>Scan QR codes on physical artifacts to instantly access their digital provenance records and verify authenticity.</p>
+        </div>
+    </div>
 
     <footer>
-        <p>© 2024 Fort Wolters Archive - Authorized Digital Record</p>
+        <p><strong>Fort Wolters Archive</strong> – A digital preservation initiative</p>
+        <p>Documenting history, one artifact at a time.</p>
+        <p style="margin-top: 20px; opacity: 0.7;">Fort Wolters, Texas | U.S. Army Primary Helicopter School (1956-1973)</p>
     </footer>
 </body>
 </html>
