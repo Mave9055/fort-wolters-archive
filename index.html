@@ -6,129 +6,239 @@
     <title>Fort Wolters Archive – Preserving Aviation History</title>
     <link rel="stylesheet" href="assets/styles.css">
     <style>
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-            padding: 80px 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d3e50 100%);
+            color: #F0F0E0;
+            padding: 100px 20px;
             text-align: center;
-            border-bottom: 4px solid #0f3460;
+            border-bottom: 6px solid #556B2F;
+            position: relative;
+            overflow: hidden;
         }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.02) 0px,
+                    rgba(255, 255, 255, 0.02) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
         .hero h1 {
-            font-size: 3em;
+            font-size: 3.5em;
             margin: 0 0 20px 0;
             font-weight: 700;
+            letter-spacing: 2px;
         }
-        .hero p {
-            font-size: 1.3em;
-            margin: 0 0 40px 0;
-            opacity: 0.9;
+
+        .hero-subtitle {
+            font-size: 1.4em;
+            margin: 0 0 10px 0;
+            opacity: 0.95;
+            font-weight: 300;
         }
+
+        .hero-meta {
+            font-size: 0.95em;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 1px;
+        }
+
         .cta-button {
             display: inline-block;
-            background: #e94560;
+            background: #E94560;
             color: white;
-            padding: 15px 40px;
+            padding: 16px 48px;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 4px;
             font-size: 1.1em;
             font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
+            border: 2px solid #E94560;
         }
+
         .cta-button:hover {
-            background: #d63447;
+            background: transparent;
+            color: #E94560;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(233, 69, 96, 0.4);
+            box-shadow: 0 6px 16px rgba(233, 69, 96, 0.5);
         }
+
+        /* Features Grid */
         .features {
             max-width: 1200px;
-            margin: 60px auto;
+            margin: 80px auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
+
         .feature-card {
             background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #556B2F;
         }
+
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
+
         .feature-card h3 {
             color: #1a1a2e;
             margin-top: 0;
-            font-size: 1.5em;
-        }
-        .feature-card p {
-            color: #555;
-            line-height: 1.6;
-        }
-        .icon {
-            font-size: 2.5em;
+            font-size: 1.4em;
             margin-bottom: 15px;
         }
+
+        .feature-card p {
+            color: #555;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            border-top: 2px solid #556B2F;
+            opacity: 0.5;
+        }
+
+        /* Footer */
         footer {
             background: #1a1a2e;
-            color: white;
+            color: #F0F0E0;
             text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
+            padding: 50px 20px;
+            margin-top: 80px;
+            border-top: 6px solid #556B2F;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        footer .footer-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        footer .footer-meta {
+            font-size: 0.9em;
+            opacity: 0.8;
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 0.9em;
+            color: #556B2F;
+        }
+
+        .breadcrumb a {
+            color: #556B2F;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+    <div class="breadcrumb">
+        <strong>Archive</strong> / Home
+    </div>
+
     <div class="hero">
-        <h1>🛩️ Fort Wolters Archive</h1>
-        <p>Preserving the Legacy of U.S. Army Aviation Training</p>
-        <a href="dashboard.html" class="cta-button">Explore the Collection →</a>
+        <div class="hero-content">
+            <h1>🛩️ FORT WOLTERS ARCHIVE</h1>
+            <div class="hero-subtitle">Preserving the Legacy of U.S. Army Aviation Training</div>
+            <div class="hero-meta">1956–1973 | Mineral Wells, Texas | 40,000+ Trained Pilots</div>
+            <a href="dashboard.html" class="cta-button">Explore the Collection →</a>
+        </div>
     </div>
 
     <div class="features">
         <div class="feature-card">
-            <div class="icon">📜</div>
+            <span class="feature-icon">📜</span>
             <h3>Digital Provenance</h3>
             <p>Every artifact is documented with detailed provenance records, high-resolution imagery, and verifiable metadata—ensuring authenticity and historical accuracy.</p>
         </div>
 
         <div class="feature-card">
-            <div class="icon">🔍</div>
+            <span class="feature-icon">🔍</span>
             <h3>Interactive Dashboard</h3>
             <p>Browse, filter, and search through the collection with our intuitive dashboard. View artifacts by category, era, condition, and more.</p>
         </div>
 
         <div class="feature-card">
-            <div class="icon">🔐</div>
+            <span class="feature-icon">🔐</span>
             <h3>Blockchain Ready</h3>
             <p>Each artifact packet includes cryptographic hashing and QR code integration, ready for future blockchain verification and NFT minting.</p>
         </div>
 
         <div class="feature-card">
-            <div class="icon">🎖️</div>
+            <span class="feature-icon">🎖️</span>
             <h3>Military Heritage</h3>
             <p>Fort Wolters trained over 40,000 helicopter pilots from 1956-1973. These artifacts preserve the stories of those who served.</p>
         </div>
 
         <div class="feature-card">
-            <div class="icon">🌐</div>
+            <span class="feature-icon">🌐</span>
             <h3>Open Access</h3>
             <p>All provenance packets are freely accessible, printable, and shareable—supporting researchers, collectors, and history enthusiasts worldwide.</p>
         </div>
 
         <div class="feature-card">
-            <div class="icon">📱</div>
+            <span class="feature-icon">📱</span>
             <h3>QR Verification</h3>
             <p>Scan QR codes on physical artifacts to instantly access their digital provenance records and verify authenticity.</p>
         </div>
     </div>
 
+    <div class="section-divider"></div>
+
     <footer>
-        <p><strong>Fort Wolters Archive</strong> – A digital preservation initiative</p>
-        <p>Documenting history, one artifact at a time.</p>
-        <p style="margin-top: 20px; opacity: 0.7;">Fort Wolters, Texas | U.S. Army Primary Helicopter School (1956-1973)</p>
+        <div class="footer-title">Fort Wolters Archive</div>
+        <p>A digital preservation initiative documenting history, one artifact at a time.</p>
+        <div class="footer-meta">Fort Wolters, Texas | U.S. Army Primary Helicopter School | 1956–1973</div>
     </footer>
 </body>
 </html>

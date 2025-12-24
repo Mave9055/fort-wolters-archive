@@ -7,104 +7,293 @@
     <link rel="stylesheet" href="../assets/styles.css">
     <style>
         body {
-            background: white;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            background: #F0F0E0;
         }
+
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 0.9em;
+            color: #556B2F;
+        }
+
+        .breadcrumb a {
+            color: #556B2F;
+        }
+
         .header {
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+            padding: 40px 20px;
             text-align: center;
-            border-bottom: 3px solid #1a1a2e;
-            padding-bottom: 30px;
-            margin-bottom: 40px;
+            border-bottom: 3px solid #556B2F;
         }
+
         .header h1 {
             color: #1a1a2e;
-            margin: 0 0 10px 0;
+            margin: 0 0 15px 0;
             font-size: 2.5em;
+            letter-spacing: 1px;
         }
+
         .artifact-id {
-            color: #e94560;
+            color: #E94560;
             font-size: 1.3em;
             font-weight: 700;
             letter-spacing: 2px;
+            font-family: 'Courier Prime', monospace;
+            margin-bottom: 10px;
         }
-        .section {
-            margin-bottom: 40px;
+
+        .header-subtitle {
+            color: #556B2F;
+            font-size: 1.1em;
+            font-weight: 600;
         }
-        .section h2 {
-            color: #1a1a2e;
-            border-left: 5px solid #e94560;
-            padding-left: 15px;
-            margin-bottom: 20px;
-        }
+
+        /* Image Gallery with Blueprint Overlay */
         .image-gallery {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
+            gap: 25px;
         }
+
         .image-item {
+            position: relative;
             border: 1px solid #ddd;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: white;
         }
+
         .image-item img {
             width: 100%;
             height: auto;
             display: block;
         }
+
         .image-caption {
-            padding: 10px;
-            background: #f5f5f5;
+            padding: 12px;
+            background: #F0F0E0;
             font-size: 0.9em;
             color: #666;
             text-align: center;
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 0.5px;
         }
-        .metadata-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
+
+        /* Blueprint Overlay Container */
+        .artifact-showcase {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            position: relative;
         }
-        .metadata-table th,
-        .metadata-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
+
+        .blueprint-container {
+            position: relative;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
         }
-        .metadata-table th {
-            background: #1a1a2e;
-            color: white;
-            font-weight: 600;
+
+        .blueprint-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('../assets/images/th55a-blueprint.jpg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.08;
+            pointer-events: none;
         }
-        .metadata-table tr:hover {
-            background: #f9f9f9;
+
+        .blueprint-content {
+            position: relative;
+            z-index: 1;
         }
+
+        .blueprint-title {
+            font-size: 1.8em;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .blueprint-subtitle {
+            font-size: 1em;
+            color: #556B2F;
+            margin-bottom: 30px;
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 1px;
+        }
+
+        /* Section Styles */
+        .section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .section h2 {
+            color: #1a1a2e;
+            border-left: 5px solid #556B2F;
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            letter-spacing: 0.5px;
+        }
+
+        /* Spec Sheet (Data-Heavy) */
+        .spec-sheet {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1px;
+            background: #ccc;
+            border: 2px solid #556B2F;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 25px 0;
+        }
+
+        .spec-item {
+            background: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .spec-label {
+            font-weight: 700;
+            color: #556B2F;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.9em;
+        }
+
+        .spec-value {
+            color: #1a1a2e;
+            text-align: right;
+            font-family: 'Courier Prime', monospace;
+        }
+
+        /* Provenance Box */
         .provenance-box {
             background: #f0f8ff;
-            border-left: 5px solid #0f3460;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
+            border-left: 5px solid #556B2F;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
+
+        .provenance-box p {
+            margin: 10px 0;
+            line-height: 1.7;
+        }
+
+        .provenance-box strong {
+            color: #556B2F;
+        }
+
+        /* Status Indicator */
+        .status-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.95em;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .status-functional {
+            background-color: #38761D;
+            box-shadow: 0 0 10px #38761D;
+        }
+
+        /* Historical Context */
         .historical-context {
             background: #fffef0;
-            border: 2px solid #e9c46a;
-            padding: 25px;
+            border: 2px solid #556B2F;
+            padding: 30px;
             border-radius: 8px;
             margin: 30px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
+
+        .historical-context h3 {
+            color: #1a1a2e;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #556B2F;
+            padding-bottom: 10px;
+        }
+
+        .historical-context p {
+            line-height: 1.8;
+            color: #333;
+        }
+
+        /* Actions */
         .actions {
             text-align: center;
-            margin: 40px 0;
+            margin: 50px 0;
             padding: 30px;
-            background: #f5f5f5;
+            background: white;
             border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
+
         .actions button {
             margin: 10px;
+            background: #556B2F;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
+
+        .actions button:hover {
+            background: #1a1a2e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px 20px;
+            border-top: 2px solid #556B2F;
+            color: #666;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.9em;
+        }
+
         @media print {
             .actions, .no-print {
                 display: none;
@@ -116,13 +305,29 @@
     </style>
 </head>
 <body>
+    <div class="breadcrumb">
+        <a href="../index.html">Archive</a> / <a href="../dashboard.html">Dashboard</a> / <strong>FW-ARC-0001</strong>
+    </div>
+
     <div class="header">
         <div class="artifact-id">FW-ARC-0001</div>
         <h1>Class 65-9WA Commemorative Lighter</h1>
-        <p><strong>Fort Wolters Primary Helicopter Training School</strong></p>
-        <p>Digital Provenance Packet</p>
+        <div class="header-subtitle">Fort Wolters Primary Helicopter Training School</div>
     </div>
 
+    <!-- Blueprint Showcase Section -->
+    <div class="artifact-showcase">
+        <div class="blueprint-container">
+            <div class="blueprint-background"></div>
+            <div class="blueprint-content">
+                <div class="blueprint-title">Hughes TH-55A Osage</div>
+                <div class="blueprint-subtitle">Primary Training Helicopter | 1965–1973</div>
+                <p style="color: #666; font-size: 0.95em; margin: 0;">The aircraft that defined a generation of Army aviators</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Gallery -->
     <div class="section">
         <h2>📸 Artifact Images</h2>
         <div class="image-gallery">
@@ -141,64 +346,61 @@
         </div>
     </div>
 
+    <!-- Metadata Spec Sheet -->
     <div class="section">
-        <h2>📋 Artifact Metadata</h2>
-        <table class="metadata-table">
-            <tr>
-                <th>Field</th>
-                <th>Value</th>
-            </tr>
-            <tr>
-                <td><strong>Artifact ID</strong></td>
-                <td>FW-ARC-0001</td>
-            </tr>
-            <tr>
-                <td><strong>Title</strong></td>
-                <td>Class 65-9WA Commemorative Lighter</td>
-            </tr>
-            <tr>
-                <td><strong>Category</strong></td>
-                <td>Lighter / Commemorative Item</td>
-            </tr>
-            <tr>
-                <td><strong>Material</strong></td>
-                <td>Brushed metal alloy</td>
-            </tr>
-            <tr>
-                <td><strong>Era</strong></td>
-                <td>1965</td>
-            </tr>
-            <tr>
-                <td><strong>Condition</strong></td>
-                <td>Good – functional with age-appropriate wear</td>
-            </tr>
-            <tr>
-                <td><strong>Class Designation</strong></td>
-                <td>65-9WA</td>
-            </tr>
-            <tr>
-                <td><strong>Recipient</strong></td>
-                <td>WOC Arthur P. Lancy Jr.</td>
-            </tr>
-            <tr>
-                <td><strong>Aircraft Type</strong></td>
-                <td>Hughes TH-55A Helicopter</td>
-            </tr>
-            <tr>
-                <td><strong>Location</strong></td>
-                <td>Fort Wolters, Texas</td>
-            </tr>
-            <tr>
-                <td><strong>Markings</strong></td>
-                <td>Class 65-9WA, Hughes World Leader logo, presentation inscription</td>
-            </tr>
-        </table>
+        <h2>📋 Artifact Specifications</h2>
+        <div class="spec-sheet">
+            <div class="spec-item">
+                <span class="spec-label">Artifact ID</span>
+                <span class="spec-value">FW-ARC-0001</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Category</span>
+                <span class="spec-value">Lighter / Commemorative</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Material</span>
+                <span class="spec-value">Brushed Metal Alloy</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Era</span>
+                <span class="spec-value">1965</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Condition</span>
+                <span class="spec-value">Good</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Functional Status</span>
+                <span class="spec-value"><span class="status-indicator status-functional"></span> Operational</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Class Designation</span>
+                <span class="spec-value">65-9WA</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Recipient</span>
+                <span class="spec-value">WOC Arthur P. Lancy Jr.</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Aircraft Type</span>
+                <span class="spec-value">Hughes TH-55A</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Location</span>
+                <span class="spec-value">Fort Wolters, Texas</span>
+            </div>
+        </div>
     </div>
 
+    <!-- Provenance Section -->
     <div class="section">
         <h2>🔍 Provenance</h2>
         <div class="provenance-box">
-            <p><strong>Original Recipient:</strong> WOC Arthur P. Lancy Jr.</p>
+            <div class="status-line">
+                <span class="status-indicator status-functional"></span>
+                <strong>Original Recipient:</strong> WOC Arthur P. Lancy Jr.
+            </div>
             <p><strong>Presentation Context:</strong> Member of the first graduating class using the Hughes TH-55A helicopter at U.S. Army Primary Helicopter Training School, Fort Wolters, Texas</p>
             <p><strong>Date:</strong> 1965</p>
             <p><strong>Acquisition:</strong> Private collection, November 15, 2024</p>
@@ -206,71 +408,67 @@
         </div>
     </div>
 
+    <!-- Historical Context -->
     <div class="section">
         <h2>📖 Historical Context</h2>
         <div class="historical-context">
             <h3>Fort Wolters Primary Helicopter Training School</h3>
             <p><strong>Fort Wolters</strong> served as the U.S. Army's primary helicopter training facility from 1956 to 1973, training over 40,000 helicopter pilots during its operational period. Located near Mineral Wells, Texas, the base played a crucial role in developing the Army's rotary-wing aviation capabilities during the Vietnam War era.</p>
-            
+
             <h3>The Hughes TH-55A Osage</h3>
             <p>The <strong>Hughes TH-55A Osage</strong> was introduced to Fort Wolters in 1965, replacing earlier training aircraft. This two-seat, piston-engine helicopter became the primary trainer for Army aviators. Class 65-9WA represents one of the first classes to complete training on this aircraft, marking a significant transition in Army aviation training methodology.</p>
-            
+
             <h3>Class 65-9WA Significance</h3>
             <p>As indicated by the inscription, this lighter was presented to a member of the <strong>first graduating class</strong> to use the Hughes TH-55A helicopter. The "65-9" designation indicates graduation in 1965, while "WA" denotes the specific class section. This makes the artifact particularly significant as it commemorates a milestone in Army aviation training history.</p>
-            
+
             <h3>Warrant Officer Candidate (WOC) Program</h3>
             <p>The recipient, WOC Arthur P. Lancy Jr., was part of the Warrant Officer Candidate program, which trained enlisted soldiers and junior officers to become Army aviators. Upon graduation, candidates received their wings and were commissioned as Warrant Officers.</p>
         </div>
     </div>
 
+    <!-- Supporting Documentation -->
     <div class="section">
         <h2>📷 Supporting Documentation</h2>
         <div class="image-gallery">
             <div class="image-item">
                 <img src="../assets/images/lighter-1.jpg" alt="Air Medal documentation">
-                <div class="image-caption">Historical reference: Air Medal documentation from era</div>
+                <div class="image-caption">Historical Reference: Military Decorations</div>
             </div>
             <div class="image-item">
                 <img src="../assets/images/lighter-2.jpg" alt="Training helicopter and class photo">
-                <div class="image-caption">Historical context: Training aircraft and class formation</div>
+                <div class="image-caption">Historical Context: Training Aircraft & Class</div>
             </div>
             <div class="image-item">
                 <img src="../assets/images/lighter-3.jpg" alt="Class roster">
-                <div class="image-caption">Class 65-9 roster showing lighter manufacturers</div>
+                <div class="image-caption">Class 65-9 Roster</div>
             </div>
         </div>
     </div>
 
+    <!-- Digital Verification -->
     <div class="section">
         <h2>🔐 Digital Verification</h2>
-        <table class="metadata-table">
-            <tr>
-                <th>Verification Field</th>
-                <th>Value</th>
-            </tr>
-            <tr>
-                <td><strong>Document Hash (SHA-256)</strong></td>
-                <td><code>a3f5e9c2b1d4f6a8e7c9b2d5f8a1c4e6</code></td>
-            </tr>
-            <tr>
-                <td><strong>Registry Entry</strong></td>
-                <td><a href="../data/registry.json">registry.json</a></td>
-            </tr>
-            <tr>
-                <td><strong>QR Code</strong></td>
-                <td>Available for physical artifact tagging</td>
-            </tr>
-            <tr>
-                <td><strong>Blockchain Ready</strong></td>
-                <td>Yes – prepared for NFT minting</td>
-            </tr>
-            <tr>
-                <td><strong>Last Updated</strong></td>
-                <td>December 22, 2025</td>
-            </tr>
-        </table>
+        <div class="spec-sheet">
+            <div class="spec-item">
+                <span class="spec-label">Document Hash (SHA-256)</span>
+                <span class="spec-value" style="font-size: 0.85em;">a3f5e9c2b1d4f6a8e7c9b2d5f8a1c4e6</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Registry Entry</span>
+                <span class="spec-value"><a href="../data/registry.json">registry.json</a></span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Blockchain Ready</span>
+                <span class="spec-value">Yes</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Last Updated</span>
+                <span class="spec-value">December 22, 2025</span>
+            </div>
+        </div>
     </div>
 
+    <!-- Actions -->
     <div class="actions no-print">
         <h3>Actions</h3>
         <button onclick="window.print()">🖨️ Print Provenance Packet</button>
@@ -278,7 +476,7 @@
         <button onclick="window.location.href='../data/registry.json'">📄 View Registry Data</button>
     </div>
 
-    <footer style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid #ddd; color: #666;">
+    <footer>
         <p><strong>Fort Wolters Archive</strong> – Digital Preservation Initiative</p>
         <p>Artifact ID: FW-ARC-0001 | Document Version: 1.0 | Generated: December 22, 2025</p>
     </footer>
