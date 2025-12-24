@@ -16,7 +16,13 @@
         <p>Browse and explore artifacts from the Fort Wolters Archive</p>
     </div>
 
-    <div class="controls">
+    <!-- Filter Toggle Button (Mobile Only) -->
+    <div class="filter-toggle-container">
+        <button id="filterToggleBtn" class="filter-toggle-btn">🔍 Filters & Search</button>
+    </div>
+
+    <!-- Collapsible Controls -->
+    <div class="controls" id="controlsPanel">
         <input type="text" id="searchInput" placeholder="🔍 Search by title, description, or ID...">
         <select id="categoryFilter">
             <option value="">All Categories</option>
@@ -145,6 +151,35 @@
                 }
             }
         };
+
+        // Collapsible filter bar functionality
+        const filterToggleBtn = document.getElementById('filterToggleBtn');
+        const controlsPanel = document.getElementById('controlsPanel');
+
+        filterToggleBtn.addEventListener('click', function() {
+            controlsPanel.classList.toggle('expanded');
+            filterToggleBtn.classList.toggle('active');
+            filterToggleBtn.textContent = controlsPanel.classList.contains('expanded') ? '✕ Close Filters' : '🔍 Filters & Search';
+        });
+
+        // Close filters when a filter is changed on mobile
+        function closeFiltersOnMobile() {
+            if (window.innerWidth <= 768) {
+                controlsPanel.classList.remove('expanded');
+                filterToggleBtn.classList.remove('active');
+                filterToggleBtn.textContent = '🔍 Filters & Search';
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            closeFiltersOnMobile();
+        });
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            closeFiltersOnMobile();
+        });
+        document.getElementById('conditionFilter').addEventListener('change', function() {
+            closeFiltersOnMobile();
+        });
     </script>
 </body>
 </html>
