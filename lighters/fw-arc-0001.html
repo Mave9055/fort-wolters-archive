@@ -190,6 +190,23 @@
             font-family: 'Courier Prime', monospace;
         }
 
+        /* Contextual Tag Links */
+        .tag-link {
+            color: #E94560;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #E94560;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tag-link:hover {
+            background-color: #E94560;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
         /* Provenance Box */
         .provenance-box {
             background: #f0f8ff;
@@ -253,6 +270,20 @@
         .historical-context p {
             line-height: 1.8;
             color: #333;
+        }
+
+        /* QR Code Container */
+        #qr-code-container {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        #qr-code-container img {
+            max-width: 300px;
+            height: auto;
         }
 
         /* Actions */
@@ -346,6 +377,13 @@
         </div>
     </div>
 
+    <!-- QR Code Section -->
+    <div class="section">
+        <h2>🔐 Verification QR Code</h2>
+        <p style="color: #666; margin-bottom: 20px;">Scan this QR code with your device to verify the authenticity of this artifact and access its digital provenance record.</p>
+        <div id="qr-code-container"></div>
+    </div>
+
     <!-- Metadata Spec Sheet -->
     <div class="section">
         <h2>📋 Artifact Specifications</h2>
@@ -364,11 +402,11 @@
             </div>
             <div class="spec-item">
                 <span class="spec-label">Era</span>
-                <span class="spec-value">1965</span>
+                <span class="spec-value"><a href="../dashboard.html?filter=era&value=1965" class="tag-link">1965</a></span>
             </div>
             <div class="spec-item">
                 <span class="spec-label">Condition</span>
-                <span class="spec-value">Good</span>
+                <span class="spec-value"><a href="../dashboard.html?filter=condition&value=Good" class="tag-link">Good</a></span>
             </div>
             <div class="spec-item">
                 <span class="spec-label">Functional Status</span>
@@ -376,7 +414,7 @@
             </div>
             <div class="spec-item">
                 <span class="spec-label">Class Designation</span>
-                <span class="spec-value">65-9WA</span>
+                <span class="spec-value"><a href="../dashboard.html?filter=class&value=65-9WA" class="tag-link">65-9WA</a></span>
             </div>
             <div class="spec-item">
                 <span class="spec-label">Recipient</span>
@@ -384,7 +422,7 @@
             </div>
             <div class="spec-item">
                 <span class="spec-label">Aircraft Type</span>
-                <span class="spec-value">Hughes TH-55A</span>
+                <span class="spec-value"><a href="../dashboard.html?filter=aircraft&value=Hughes%20TH-55A" class="tag-link">Hughes TH-55A</a></span>
             </div>
             <div class="spec-item">
                 <span class="spec-label">Location</span>
@@ -480,5 +518,7 @@
         <p><strong>Fort Wolters Archive</strong> – Digital Preservation Initiative</p>
         <p>Artifact ID: FW-ARC-0001 | Document Version: 1.0 | Generated: December 22, 2025</p>
     </footer>
+
+    <script src="../js/identity.js"></script>
 </body>
 </html>

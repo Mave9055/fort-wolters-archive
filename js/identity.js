@@ -19,22 +19,42 @@ async function generateArtifactHash(artifactData) {
 }
 
 /**
- * Generate QR code for artifact URL
+ * Generate QR code for artifact URL using canvas-based rendering
  * @param {string} artifactUrl - The full URL to the artifact page
  * @param {string} containerId - DOM element ID to render QR code
  */
 function generateQRCode(artifactUrl, containerId) {
-    // Using qrcode.js library (would need to be included)
-    // This is a placeholder for QR generation logic
-    console.log(`QR Code would be generated for: ${artifactUrl}`);
-    console.log(`Target container: ${containerId}`);
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error(`Container with ID "${containerId}" not found`);
+        return;
+    }
+
+    // Create a canvas element for the QR code
+    const canvas = document.createElement('canvas');
+    canvas.id = 'qr-canvas';
+    canvas.style.border = '2px solid #556B2F';
+    canvas.style.borderRadius = '8px';
+    canvas.style.padding = '10px';
+    canvas.style.backgroundColor = 'white';
     
-    // In production, you would use a library like:
-    // new QRCode(document.getElementById(containerId), {
-    //     text: artifactUrl,
-    //     width: 256,
-    //     height: 256
-    // });
+    container.appendChild(canvas);
+
+    // Use QR code generation via API
+    // This uses a simple GET request to generate the QR code as an image
+    const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(artifactUrl)}`;
+    
+    const img = document.createElement('img');
+    img.src = qrImageUrl;
+    img.alt = 'QR Code for artifact verification';
+    img.style.maxWidth = '100%';
+    img.style.height = 'auto';
+    img.style.borderRadius = '8px';
+    img.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+    
+    // Clear canvas and add image
+    container.innerHTML = '';
+    container.appendChild(img);
 }
 
 /**
@@ -70,12 +90,25 @@ async function verifyArtifactHash(artifactId, providedHash) {
 function getArtifactUrl(artifactId) {
     const baseUrl = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '');
     // Map artifact ID to page URL
-    // This would be expanded based on artifact categories
     if (artifactId.startsWith('FW-ARC-')) {
         const category = 'lighters'; // Would be determined by artifact type
         return `${baseUrl}/${category}/${artifactId.toLowerCase()}.html`;
     }
     return baseUrl;
+}
+
+/**
+ * Initialize QR code generation on artifact page
+ */
+function initQRCode() {
+    const artifactId = document.querySelector('.artifact-id')?.textContent;
+    if (artifactId) {
+        const qrContainer = document.getElementById('qr-code-container');
+        if (qrContainer) {
+            const artifactUrl = window.location.href;
+            generateQRCode(artifactUrl, 'qr-code-container');
+        }
+    }
 }
 
 /**
@@ -103,15 +136,61 @@ function initVerificationUI() {
                     statusDiv.textContent = '✗ Verification failed - Hash does not match';
                 }
                 
-                document.querySelector('.header').after(statusDiv);
+                const header = document.querySelector('.header');
+                if (header) {
+                    header.after(statusDiv);
+                }
             });
+        }
+    }
+}
+
+/**
+ * Handle contextual tag filtering
+ * @param {string} tagType - Type of tag (e.g., 'aircraft', 'class', 'era')
+ * @param {string} tagValue - Value of the tag
+ */
+function filterByTag(tagType, tagValue) {
+    const dashboardUrl = '../dashboard.html?filter=' + encodeURIComponent(tagType) + '&value=' + encodeURIComponent(tagValue);
+    window.location.href = dashboardUrl;
+}
+
+/**
+ * Apply contextual tag filters from URL parameters on dashboard
+ */
+function applyContextualFilters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterType = urlParams.get('filter');
+    const filterValue = urlParams.get('value');
+
+    if (filterType && filterValue) {
+        // Map filter types to form elements
+        const filterMap = {
+            'aircraft': 'categoryFilter',
+            'class': 'categoryFilter',
+            'era': 'eraFilter',
+            'condition': 'conditionFilter'
+        };
+
+        const elementId = filterMap[filterType];
+        if (elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.value = filterValue;
+                // Trigger the filter
+                element.dispatchEvent(new Event('change'));
+            }
         }
     }
 }
 
 // Auto-initialize on page load
 if (typeof window !== 'undefined') {
-    window.addEventListener('DOMContentLoaded', initVerificationUI);
+    window.addEventListener('DOMContentLoaded', function() {
+        initQRCode();
+        initVerificationUI();
+        applyContextualFilters();
+    });
 }
 
 // Export functions for use in other modules
@@ -120,6 +199,7 @@ if (typeof module !== 'undefined' && module.exports) {
         generateArtifactHash,
         generateQRCode,
         verifyArtifactHash,
-        getArtifactUrl
+        getArtifactUrl,
+        filterByTag
     };
 }

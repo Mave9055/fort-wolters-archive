@@ -201,6 +201,7 @@
         No artifacts found matching your filters.
     </div>
 
+    <script src="js/identity.js"></script>
     <script>
         let artifacts = [];
 
@@ -211,6 +212,8 @@
                 artifacts = data.artifacts;
                 renderArtifacts(artifacts);
                 updateStats(artifacts);
+                // Apply contextual filters from URL parameters
+                applyContextualFilters();
             })
             .catch(error => {
                 console.error('Error loading registry:', error);
@@ -284,6 +287,23 @@
         document.getElementById('searchInput').addEventListener('input', filterArtifacts);
         document.getElementById('categoryFilter').addEventListener('change', filterArtifacts);
         document.getElementById('conditionFilter').addEventListener('change', filterArtifacts);
+
+        // Override applyContextualFilters to work with dashboard
+        window.applyContextualFilters = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const filterType = urlParams.get('filter');
+            const filterValue = urlParams.get('value');
+
+            if (filterType && filterValue) {
+                if (filterType === 'condition') {
+                    document.getElementById('conditionFilter').value = filterValue;
+                    filterArtifacts();
+                } else {
+                    document.getElementById('searchInput').value = filterValue;
+                    filterArtifacts();
+                }
+            }
+        };
     </script>
 </body>
 </html>
