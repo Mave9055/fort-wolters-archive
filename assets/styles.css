@@ -191,3 +191,53 @@ button:hover, .button:hover {
         page-break-inside: avoid;
     }
 }
+/* Fort Wolters Archive - Global Styles */
+:root {
+    --army-green: #2E3B23;
+    --khaki: #A39274;
+    --brass: #D4AF37;
+    --paper: #F5F5F0;
+    --stencil-black: #1A1A1A;
+}
+
+body {
+    background-color: var(--paper);
+    color: var(--stencil-black);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Monospace for Metadata & IDs */
+.mono {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    text-transform: uppercase;
+}
+
+/* The "Military Manifest" Table */
+.manifest-table {
+    width: 100%;
+    border: 1px solid var(--stencil-black);
+    margin-top: 2rem;
+}
+
+.manifest-table th {
+    background: var(--army-green);
+    color: white;
+    padding: 12px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+.manifest-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background: white;
+}
+
+/* Scanned/Hashed Badge */
+.hash-badge {
+    background: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    border-left: 4px solid var(--brass);
+}
