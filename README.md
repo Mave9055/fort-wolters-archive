@@ -56,8 +56,8 @@ git add .
 # Commit files
 git commit -m "Initial deploy of Fort Wolters Archive"
 
-# Add remote origin (replace YOUR-USERNAME with your GitHub username)
-git remote add origin https://github.com/YOUR-USERNAME/fort-wolters-archive.git
+# Add remote origin (replace Mave9055 with your GitHub username)
+git remote add origin https://github.com/Mave9055/fort-wolters-archive.git
 
 # Push to GitHub
 git branch -M main
@@ -80,7 +80,7 @@ git push -u origin main
 Your archive will be live at:
 
 ```
-https://YOUR-USERNAME.github.io/fort-wolters-archive/
+https://Mave9055.github.io/fort-wolters-archive/
 ```
 
 **Pages:**
